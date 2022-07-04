@@ -2,5 +2,3 @@ requests
 python-dotenv
 # util functions
 pandas
-# formating
-black
