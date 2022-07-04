@@ -1,3 +1,9 @@
+# cache
 __pycache__/
+# environment and enviroment variables
 venv/
 .env
+# packaging
+*.egg*
+build/
+dist/
