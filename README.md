@@ -1,6 +1,13 @@
 # Geoguesser Challenge Result API
 3rd party API for accessing Geoguessr challenge scores. Uses the API found within Geoguessr to extract scores and store them in pandas DataFrames for ease of use
-
+## Installation
+```
+python3 -m pip install geoguessr
+```
+If you'd like to clone it and run it that way, you can that by running the following command after cloning this repository:
+```
+python setup.py install
+```
 ## Example
 ```py
 from gg import Geoguesser
