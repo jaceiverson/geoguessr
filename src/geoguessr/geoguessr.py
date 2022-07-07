@@ -16,6 +16,9 @@ class Geoguessr:
 
     @staticmethod
     def _get_headers() -> dict:
+        cookie = os.environ.get("GEOGUESSR_COOKIE")
+        if cookie is None:
+            raise KeyError("Please define GEOGUESSR_COOKIE as an environment variable")
         return {
             "authority": "www.geoguessr.com",
             "accept": "*/*",
