@@ -1,5 +1,10 @@
-from xml.etree.ElementInclude import include
 import pandas as pd
+from dotenv import load_dotenv
+
+
+def refresh_dotenv() -> None:
+    """refreshes dotenv"""
+    load_dotenv()
 
 
 def parse_activity_response(response: list) -> list:
