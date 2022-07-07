@@ -1,5 +1,5 @@
-from gg import Geoguessr
-from util import parse_challenge_response, extract_round_guesses, simplify_table, clean
+from geoguessr import Geoguessr
+import geoguessr.util as gg
 
 
 def main():
@@ -16,17 +16,17 @@ def main():
     """OPTION 1 - use each cleaning method individually"""
 
     # parse the JSON response as a pd.DataFrame
-    all_data_df = parse_challenge_response(raw_data)
+    all_data_df = gg.parse_challenge_response(raw_data)
     # extract the round data for each player into a pd.DataFrame
-    round_data = extract_round_guesses(raw_data)
+    round_data = gg.extract_round_guesses(raw_data)
     # simplify the entire response to just get the totalScore
-    player_data = simplify_table(all_data_df, ["totalScore"])
+    player_data = gg.simplify_table(all_data_df, ["totalScore"])
     # join the player and round data together for our final table
     df = player_data.join(round_data)
 
     """OPTION 2 - use the clean() function to do all opperations in one"""
 
-    df = clean(raw_data)
+    df = gg.clean(raw_data)
 
 
 if __name__ == "__main__":

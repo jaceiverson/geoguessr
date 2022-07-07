@@ -1,17 +1,24 @@
 # Geoguesser Challenge Result API
+
 3rd party API for accessing Geoguessr challenge scores. Uses the API found within Geoguessr to extract scores and store them in pandas DataFrames for ease of use
+
 ## Installation
+
 ```
 python3 -m pip install geoguessr
 ```
+
 If you'd like to clone it and run it that way, you can that by running the following command after cloning this repository:
+
 ```
 python setup.py install
 ```
+
 ## Example
+
 ```py
-from gg import Geoguesser
-from util import clean
+from geoguessr import Geoguesser
+from geoguessr.util import clean
 
 # initialize our instance of the class
 geo = Geoguessr()
@@ -21,56 +28,68 @@ challenge_id = "abc123"
 raw_data = geo.get_challenge_scores(chal)
 scores = clean(raw_data)
 ```
+
 ### Sample output
-| playerName   |   totalScore |   R1 |   R2 |   R3 |   R4 |   R5 |
-|:-------------|-------------:|-----:|-----:|-----:|-----:|-----:|
-| John     |        17120 | 4566 | 2940 | 4782 | 3589 | 1243 |
-| Jane   |        11740 |   86 | 2632 | 2808 | 3896 | 2318 |
-| Sue          |        10148 | 1396 | 3278 | 3422 |  112 | 1940 |
-| Bob |         9954 |   51 | 2718 | 4997 |  443 | 1745 |
-| Mary       |         8796 |   95 |   23 | 3186 | 3747 | 1745 |
+
+| playerName | totalScore |   R1 |   R2 |   R3 |   R4 |   R5 |
+| :--------- | ---------: | ---: | ---: | ---: | ---: | ---: |
+| John       |      17120 | 4566 | 2940 | 4782 | 3589 | 1243 |
+| Jane       |      11740 |   86 | 2632 | 2808 | 3896 | 2318 |
+| Sue        |      10148 | 1396 | 3278 | 3422 |  112 | 1940 |
+| Bob        |       9954 |   51 | 2718 | 4997 |  443 | 1745 |
+| Mary       |       8796 |   95 |   23 | 3186 | 3747 | 1745 |
 
 ## Requirements / Inputs
-In order to use this API you will need to have participated in the challenge and have your ncfa cookie value stored as the environment variable: 
+
+In order to use this API you will need to have participated in the challenge and have your ncfa cookie value stored as the environment variable:
+
 ```
 GEOGUESSR_COOKIE
-``` 
+```
+
 By default this library uses <a href=https://pypi.org/project/python-dotenv/>python-dotenv</a> and its corresponding `.env` file to store environment variables.
 
-This value can be found in the dev tools section of your browser. Look for the _ncfa value and copy it. You will store your variable like the following, replacing with your custom cookie value:
+This value can be found in the dev tools section of your browser. Look for the \_ncfa value and copy it. You will store your variable like the following, replacing with your custom cookie value:
+
 ```
 GEOGUESSR_COOKIE=_ncfa={MY COOKIE VALUE}
 ```
+
 This is slightly confusing with the double equal sign, but that is how it should be formated so the request can properly go through. To reduce errors this value should be URL encoded (but don't worry that is the default on Chrome dev tools if you copied it over from there).
 
 ## Class Methods
+
 ```py
 .get_challenge_scores(
-    self, 
+    self,
     challenge_id: str = None
     ) -> list:
 ```
+
 Returns the raw response for the given challenge_id. Challenge_id can be found in the URl of the challenge. This is the code that is found after either `/results/` or `/challenge/` in the URL. Because this returns a raw response, there are utility functions to help clean and parse the data into other forms
 
-## Utility Functions (from util import *)
+## Utility Functions (from util import \*)
+
 ```py
 .clean(
-    raw_data: list, 
+    raw_data: list,
     column_list: list = ["totalScore"],
     include_round_scores: bool = True
     ) -> pd.DataFrame
 ```
+
 The main parsing function to clean challenge scores and put them into a DataFrame.
 
-```raw_data```: is your response from `.get_challenge_scores()`
+`raw_data`: is your response from `.get_challenge_scores()`
 
-```column_list```: is which columns you'd like to include, by default this is only the totalScore, but a list of all columns you can chose from is included below.
+`column_list`: is which columns you'd like to include, by default this is only the totalScore, but a list of all columns you can chose from is included below.
 
-```include_round_scores```: will determine if you would like to see each round score included in your output, by default this is True and will show each rounds' score.
+`include_round_scores`: will determine if you would like to see each round score included in your output, by default this is True and will show each rounds' score.
 
 ### Potential Columns
+
 |   # | Column                                       | Dtype   |
-|----:|:---------------------------------------------|:--------|
+| --: | :------------------------------------------- | :------ |
 |   0 | gameToken                                    | object  |
 |   1 | userId                                       | object  |
 |   2 | totalScore                                   | int64   |
