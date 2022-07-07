@@ -1,4 +1,5 @@
 import os
+from urllib.error import URLError
 import requests
 from dotenv import load_dotenv
 
@@ -12,7 +13,9 @@ class Geoguessr:
 
     def _make_request(self, endpoint) -> None:
         response = requests.request("GET", endpoint, headers=self._get_headers())
-        return response.json()
+        if response.ok:
+            return response.json()
+        return response.ok
 
     @staticmethod
     def _get_headers() -> dict:
