@@ -17,7 +17,7 @@ python setup.py install
 ## Example
 
 ```py
-from geoguessr import Geoguesser
+from geoguessr import Geoguessr
 from geoguessr.util import clean
 
 # initialize our instance of the class
@@ -25,7 +25,7 @@ geo = Geoguessr()
 
 # make the html request to API
 challenge_id = "abc123"
-raw_data = geo.get_challenge_scores(chal)
+raw_data = geo.get_challenge_scores(challenge_id)
 scores = clean(raw_data)
 ```
 
